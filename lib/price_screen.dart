@@ -21,6 +21,15 @@ class _PriceScreenState extends State<PriceScreen> {
     return dropDownItems;
   }
 
+  List<Text> getPickerItems() {
+    List<Text> pickerItems = [];
+    for (String currency in currenciesList) {
+      Text(currency);
+      pickerItems.add(Text(currency));
+    }
+    return pickerItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     getDropDownItems();
@@ -59,17 +68,29 @@ class _PriceScreenState extends State<PriceScreen> {
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: DropdownButton<String>(
-                value: selectedCurrency,
-                items: getDropDownItems(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedCurrency = value;
-                  });
-                }),
+            child: CupertinoPicker(
+              backgroundColor: Colors.lightBlue,
+              itemExtent: 32,
+              onSelectedItemChanged: (selectedIndex) {
+                print(selectedIndex);
+              },
+              children: getPickerItems(),
+            ),
           )
         ],
       ),
     );
   }
 }
+
+/*
+DropdownButton<String>(
+value: selectedCurrency,
+items: getDropDownItems(),
+onChanged: (value) {
+setState(() {
+selectedCurrency = value;
+});
+})
+
+ */
